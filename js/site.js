@@ -1,7 +1,19 @@
 const uri = 'https://jsonplaceholder.typicode.com/users';
-arr=[]
-fetch('https://jsonplaceholder.typicode.com/users')
-  .then(response => response.json())
-  .then(data => console.log(data))
 
-arr= data
+
+  /* need to use onload function */
+var formData = new FormData();
+var fileField = document.querySelector("input[type='file']");
+  
+  formData.append('#id', fileField.files[0]);
+  formData.append('name', fileField.files[1]);
+  formData.append('username', fileField.files[2]);
+  formData.append('email', fileField.files[3]);
+
+  fetch('https://jsonplaceholder.typicode.com/users', {
+    method: 'PUT',
+    body: formData
+  })
+  .then(response => response.json())
+  .catch(error => console.error('Error:', error))
+  .then(response => console.log('Success:', JSON.stringify(response)))
